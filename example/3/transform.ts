@@ -1,8 +1,8 @@
 import { Transform, ASTPath, ImportDeclaration } from "jscodeshift";
 
-const transform: Transform = (fileInfo, { jscodeshift }, options) => {
+const transform: Transform = ({source}, { jscodeshift }) => {
   const j = jscodeshift;
-  const root = j(fileInfo.source);
+  const root = j(source);
 
   const addNamespaceForReact = (path: ASTPath<ImportDeclaration>) => {
     const restImportSpecifier = path.node.specifiers.filter(specifier => specifier.type !== 'ImportDefaultSpecifier' && specifier.local.name !== 'React')
